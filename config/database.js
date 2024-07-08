@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
+const pg = require('pg');
 
 const config = {
   username: process.env.PGUSER,
