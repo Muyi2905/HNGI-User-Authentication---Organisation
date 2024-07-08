@@ -6,6 +6,10 @@ const organisationRoutes = require('./src/routes/organisations');
 
 const app = express();
 
+app.get("/", (req, res)=> {
+  res.send("hello")
+})
+
 app.use(express.json());
 
 app.use('/auth', authRoutes);
