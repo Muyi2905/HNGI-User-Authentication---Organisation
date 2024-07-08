@@ -20,7 +20,15 @@ exports.register = async (req, res) => {
       });
     }
 
-    const user = await User.create({ firstName, lastName, email, password, phone });
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({ 
+      firstName, 
+      lastName, 
+      email, 
+      password: hashedPassword, 
+      phone 
+    });
 
     const organisation = await Organisation.create({
       name: `${firstName}'s Organisation`,
@@ -46,9 +54,10 @@ exports.register = async (req, res) => {
       },
     });
   } catch (error) {
+    console.error('Registration error:', error);
     res.status(400).json({
       status: 'Bad request',
-      message: 'Registration unsuccessful',
+      message: 'Registration unsuccessful: ' + error.message,
       statusCode: 400,
     });
   }

@@ -1,17 +1,8 @@
 'use strict';
-const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Organisation extends Model {
-    static associate(models) {
-      Organisation.belongsToMany(models.User, {
-        through: 'UserOrganisations',
-        foreignKey: 'orgId',
-      });
-    }
-  }
-  Organisation.init({
-    orgId: {
+  const Organisation = sequelize.define('Organisation', {
+    organisationId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
@@ -23,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.STRING,
     },
-  }, {
-    sequelize,
-    modelName: 'Organisation',
   });
+
+  Organisation.associate = (models) => {
+    Organisation.belongsToMany(models.User, {
+      through: 'UserOrganisations',
+      foreignKey: 'organisationId',
+      otherKey: 'userId',
+    });
+  };
+
   return Organisation;
 };
