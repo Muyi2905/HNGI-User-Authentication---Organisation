@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const organisationController = require('../controllers/organisationController');
-const authMiddleware = require('../middleware/auth');
+const authMiddleware = require('../middlewares/auth');
 
 router.get('/', authMiddleware, organisationController.getAllOrganisations);
 router.get('/:orgId', authMiddleware, organisationController.getOrganisationById);

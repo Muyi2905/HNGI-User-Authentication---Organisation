@@ -1,5 +1,5 @@
-const Organisation = require('../models/organisation');
-const User = require('../models/user');
+const Organisation = require('../../models/organisation');
+const User = require('../../models/user');
 
 exports.getAllOrganisations = async (req, res) => {
   try {

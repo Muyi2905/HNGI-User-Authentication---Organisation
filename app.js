@@ -1,8 +1,10 @@
 const express = require('express');
 const sequelize = require('./config/database');
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/users');
-const organisationRoutes = require('./routes/organisations');
+const authRoutes = require('./src/routes/auth');
+const userRoutes = require('./src/routes/users');
+const organisationRoutes = require('./src/routes/organisations');
+
+
 
 const app = express();
 

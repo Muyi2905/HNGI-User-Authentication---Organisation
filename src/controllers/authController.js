@@ -1,7 +1,7 @@
-const User = require('../models/user');
-const Organisation = require('../models/organisation');
+const User = require('../../models/user');
+const Organisation = require('../../models/organisation');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { validateRegistration, validateLogin } = require('../utils/validation');
 
 exports.register = async (req, res) => {
