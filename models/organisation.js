@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = (sequelize, DataTypes) => {
   const Organisation = sequelize.define('Organisation', {
     organisationId: {
@@ -18,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Organisation.associate = (models) => {
     Organisation.belongsToMany(models.User, {
-      through: 'UserOrganisations',
+      through: 'UserOrganisation',
       foreignKey: 'organisationId',
       otherKey: 'userId',
     });

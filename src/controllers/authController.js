@@ -1,5 +1,4 @@
-const User = require('../../models/user');
-const Organisation = require('../../models/organisation');
+const { User, Organisation } = require('../../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { validateRegistration, validateLogin } = require('../utils/validation');
@@ -22,12 +21,12 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({ 
-      firstName, 
-      lastName, 
-      email, 
-      password: hashedPassword, 
-      phone 
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      phone,
     });
 
     const organisation = await Organisation.create({
@@ -35,6 +34,7 @@ exports.register = async (req, res) => {
       description: `Default organisation for ${firstName} ${lastName}`,
     });
 
+    // Ensure the models are correctly associated
     await user.addOrganisation(organisation);
 
     const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, { expiresIn: '1h' });

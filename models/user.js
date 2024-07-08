@@ -1,6 +1,3 @@
-'use strict';
-const bcrypt = require('bcryptjs');
-
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     userId: {
@@ -20,9 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
-        isEmail: true,
-      },
     },
     password: {
       type: DataTypes.STRING,
@@ -30,13 +24,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     phone: {
       type: DataTypes.STRING,
+      allowNull: true,
     },
   });
 
-  User.beforeCreate(async (user) => {
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-  });
+  User.associate = (models) => {
+    User.belongsToMany(models.Organisation, {
+      through: 'UserOrganisation',
+      foreignKey: 'userId',
+      otherKey: 'organisationId',
+    });
+  };
 
   return User;
 };
