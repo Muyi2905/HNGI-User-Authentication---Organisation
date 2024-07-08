@@ -4,8 +4,6 @@ const authRoutes = require('./src/routes/auth');
 const userRoutes = require('./src/routes/users');
 const organisationRoutes = require('./src/routes/organisations');
 
-
-
 const app = express();
 
 app.use(express.json());
